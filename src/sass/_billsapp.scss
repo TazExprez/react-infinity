@@ -1,0 +1,392 @@
+// background: linear-gradient(90deg, rgba(63,255,173,1) 0%, rgba(66,195,194,1) 100%);
+// background: linear-gradient(90deg, #36d1dc 0%, #5b86e5 100%);
+
+#BillsApp {
+    background: rgb(63,255,173);
+    background: linear-gradient(90deg, #36d1dc 0%, #5b86e5 100%);
+    height: 100vh;
+    // This does not seem to be doing anything.
+    width: 100%;
+    // We are doing this to make sure that everything stays inside of the #BillsApp <div>.  This is in case we decide to make the app bigger later on.  We decided to basically set the position to relative on the app itself.
+    position: relative;
+    // This will prevent the app from letting the #FloatingMenu <nav> from scrolling up, along with the bills, when there is a long list of bills.  The maximum height in the app will be 100vh.  The long list of bills will still be there, but some will be hidden.
+    overflow: hidden;
+    
+    header {
+        display: flex;
+        justify-content: center;
+        // This does not seem to be doing anything.
+        align-items: center;
+        padding: 20px 0;
+    
+        h2 {
+            font-size: 1.8rem;
+            font-weight: 900;
+            color: white;
+        }
+    }
+
+    #AllBills {
+        // We had to set the position to relative so that the z-index:3; would work.
+        position: relative;
+        z-index: 3;
+        // We are going to set the height and then the overflow so that we can scroll through all of the bills.  Many of them are hidden because that was specified above with the overflow:hidden; near the beginning of the #BillsApp{}. The height is set by subtracting the approximate height of the <header>, including the padding, from 100%.  Then we set the overflow:scroll; to let us scroll through the list of bills.
+        height: calc(100% - 69px);
+        overflow: scroll;
+
+        .container {
+            width: 100%;
+            padding: 0 20px;
+        }
+
+        .total-bills {
+            color: white;
+            display: flex;
+            justify-content: space-between;
+            // This doesn't seem to do anything.
+            align-items: center;
+            width: 100%;
+            padding: 20px 0;
+
+            .text {
+                font-size: 1.3rem;
+            }
+
+            .number {
+                font-size: 0.9rem;
+                display: flex;
+                // This doesn't seem to do anything.
+                justify-content: center;
+                align-items: center;
+                font-weight: 300;
+            }
+        }
+
+        .bills-list {
+            background: white;
+            border-radius: 10px;
+            // We had to do this overflow:hidden; so that when the .buttons <div>s were coming out from right to left, the .bills-list <ul> would not get distorted on the right side until the animation finished.  Now everything is contained within the .bills-list <ul>.
+            overflow: hidden;
+            // Now we are going to control the padding inside of the .bill{} so that the border-bottom stretches across the entire .bills-list <ul>.
+            // padding: 20px;
+            -webkit-box-shadow: 0px 10px 31px -9px rgba(173,173,173,1);
+            -moz-box-shadow: 0px 10px 31px -9px rgba(173,173,173,1);
+            box-shadow: 0px 10px 31px -9px rgba(173,173,173,1);
+        
+            .bill {
+                display: flex;
+                justify-content: space-between;
+                // This is going to put a border at the bottom of every single bill.
+                border-bottom: 1px solid #e8e8e8;
+                padding: 20px;
+                // We had to set the .bill <li> to position:relative; so that the .buttons <div>s would be kept within this .bill <li> when they were set to position:absolute;.
+                position: relative;
+                // This does not seem to do anything.
+                overflow: hidden;
+                // This does not seem to do anything.
+                height: 82px;
+                // The background of the .bill <li> is going to be white by default.
+                background: #ffffff;
+
+                // When the .bill <li> also has the .active, the background will be green.  This will be the case when the bill status is paid.
+                &.active {
+                    background: #a6f441;
+                }
+
+                // We are going to hide the .button <div>s when not in use, the same way we hide the <form> that adds another bill.  We are going to show them with a hover effect.
+                &:hover {
+                    .buttons {
+                        transform: translate3d(0, 0, 0);
+                    }
+                }
+
+                // This selector is only going to target the last child.  This will target the last element that has the .bill.  Whoever is the last child will get a border:none;, or no border.
+                &:last-child {
+                    border: none;
+                    // This lets you see the final bill.  Joe did not include this.
+                    // margin-bottom: 80px;
+                    // margin-bottom: 100px;
+                }
+
+                .company {
+                    display: flex;
+                    // This does not seem to do anything.
+                    justify-content: center;
+                    align-items: center;
+
+                    .logo {
+                        img {
+                            border-radius: 50%;
+                            height: 40px;
+                            // This wasn't doing anything until we created an img{} inside of the .logo{}.  This width:50px; was set before the things above it.
+                            // width: 50px;
+                            width: 40px;
+                        }
+                    }
+
+                    .title {
+                        font-size: 1.1rem;
+                        font-weight: 500;
+                        margin-left: 20px;
+                        color: rgb(63, 60, 60);
+                        // This is going to capitalize the first letter of the title.
+                        text-transform: capitalize;
+                    }
+                }
+
+                .price {
+                    display: flex;
+                    // This does not seem to do anything.
+                    justify-content: center;
+                    align-items: center;
+                    color: rgb(121, 116, 116);
+                }
+
+                .buttons {
+                    display: flex;
+                    position: absolute;
+                    top: 0;
+                    right: 0;
+                    height: 100%;
+                    width: 100px;
+                    // transform: translate3d(500px, 0, 0);
+                    // We changed the transform to 100% because with 500px the .buttons <div>s were hidden too far away at 500px, so the animation was weird.
+                    transform: translate3d(100%, 0, 0);
+                    transition: transform 0.4s ease-in-out;
+                    cursor: pointer;
+                    
+                    .paid {
+                        background: #a6f441;
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                        width: 50%;
+                        color: white;
+                    }
+
+                    .delete {
+                        background: #f44242;
+                        // We removed the border radius from the .delete <div> because we added the overflow:hidden; on the .bills-list <ul>.  We don't need the border radius on the .delete <div> any longer.
+                        // border-top-right-radius: 10px;
+                        // border-bottom-right-radius: 10px;
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                        width: 50%;
+                        color: white;
+                    }
+                }
+            }
+        }
+    }
+
+    .content-background {
+        background: #e8e8e8;
+        height: 77vh;
+        // We had to specify a width because you lose the width when you use position:absolute;.
+        width: 100%;
+        position: absolute;
+        bottom: 0;
+        z-index: 2;
+        // z-index of 1 is the background.  z-index of 2 is this .content-background <div>.  z-index of 3 is everything else.
+    }
+}
+
+#FloatingMenu {
+    background: white;
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    // We set the position to absolute on the #FloatingMenu <nav>, while we set the position to relative on the #BillsApp <div>, which is the main app.
+    // The caused the #FloatingMenu <nav> to occupy less than 100% of the screen width.
+    position: absolute;
+    // We gave this a z-index of 100 so that it's always on top, even when there are a lot more .bill <li>s.
+    z-index: 100;
+    bottom: 0;
+    width: 100%;
+    // Here we used the same box shadow as in the .bills-list <ul>, but we did this one with the box shadow going up, vertically.  We did this because this #FloatingMenu <nav> is at the bottom of the view.
+    -webkit-box-shadow: 0px -10px 31px -9px rgba(173,173,173,1);
+    -moz-box-shadow: 0px -10px 31px -9px rgba(173,173,173,1);
+    box-shadow: 0px -10px 31px -9px rgba(173,173,173,1);
+
+    .icon {
+        // This is going to make the Font Awesome icon bigger.
+        font-size: 2rem;
+        margin-bottom: 10px;
+        color: rgb(201, 201, 201);
+        transition: all 0.4s ease-in-out;
+    }
+
+    .text {
+        font-size: 0.8rem;
+        color: rgb(201, 201, 201);
+        transition: all 0.4s ease-in-out;        
+    }
+
+    .link {
+        display: flex;
+        flex-direction: column;
+        // This does not seem to be doing anything.
+        justify-content: center;
+        align-items: center;
+        // We put this transition in the .text{} and the .icon{} to try to get the it to work, but it did not work.
+        transition: all 0.4s ease-in-out;
+        cursor: pointer;
+    
+        // We moved this from the .icon{} to this .link{} in order to use this for the .icon and .text <div>s.
+        // In Joe's case, this was not working for the Font Awesome icon and it was disappearing when Joe hovered over the .link <div>.  I think this happened because Joe forgot to change the class to className for the Font Awesome icon.  So Joe is going to try another technique to get this to work.
+        &:hover {
+            background: linear-gradient(90deg, #36d1dc 0%, #5b86e5 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            // This does not seem to be doing anything.
+            text-align: center;
+
+            // Now when we hover over the .link <div>, we are also going to target the .far <i>, which is the Font Awesome icon.  Joe had issues targeting it, but I didn't.
+            // .far:before {
+            // We added .fas:before for icons that show up with the .fas.
+            .far:before, .fas:before {
+                // We are making the background to be the linear gradient.
+                background: linear-gradient(90deg, #36d1dc 0%, #5b86e5 100%);
+                // With these two properties, we are making the text transparent, so whatever the background color is, that is what is now going to be the color of the text.  The Font Awesome icon is really text, in case you didn't know.
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+            }
+        
+            // This will change the .plus <i> to white when you hover over it.
+            &:last-child {
+                .far:before, .fas:before {
+                    background: white;
+                    -webkit-background-clip: text;
+                    -webkit-text-fill-color: transparent;
+                }
+            }
+        }
+
+        // This causes the .plus <i> to always remain white, even if you are not hovering over it.
+        &:last-child {
+            .far:before, .fas:before {
+                background: white;
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+                font-size: 0.9rem;
+            }
+        }
+    }
+
+    .add-button {
+        background: linear-gradient(90deg, #36d1dc 0%, #5b86e5 100%);
+        height: 55px;
+        width: 55px;
+        border-radius: 50%;
+        // This does not seem to do anything.
+        color: white;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        .icon {
+            // This seems to have removed the .icon <div> from the center.
+            display: flex;
+            // This does not seem to do anything.
+            justify-content: center;
+            // This does not seem to do anything.
+            align-items: center;
+            position: relative;
+            top: -3px;
+        }
+    }
+}
+
+#AddBill {
+    position: absolute;
+    z-index: 5;
+    top: 0;
+    width: 100%;
+    height: 100vh;
+    // This does not seem to do anything.
+    overflow: hidden;
+    background: linear-gradient(90deg, #36d1dc 0%, #5b86e5 100%);
+    // When the #AddBill <section> doesn't have the .active, it will be moved 100% to the right and be hidden from the view.
+    transform: translate3d(100%, 0, 0);
+    transition: transform 0.4s ease-in-out;
+
+    &.active {
+        // This is sending the #AddBill <section> to the right place on the view when it has the .active.
+        transform: translate3d(0, 0, 0);
+    }
+
+    .container {
+        padding: 0 20px;
+    }
+
+    h2 {
+        font-size: 2rem;
+        color: white;
+        text-transform: uppercase;
+        text-align: center;
+        margin: 2rem 0;
+    }
+
+    .form-group {
+        margin: 0 0 1.5rem;
+    }
+
+    label {
+        display: block;
+        color: white;
+        font-size: 0.8rem;
+        margin-bottom: 10px;
+        font-weight: 700;
+    }
+
+    input {
+        display: block;
+        background: transparent;
+        border: 1px solid white;
+        font-size: 1.1rem;
+        padding: 7px;
+        color: white;
+        width: 100%;
+    
+        &:focus {
+            // This will remove the blue focus ring from the <input> when you are entering data into it.
+            // This is not a good practice because it causes an accessibility issue.
+            outline: 0;
+        }
+    }
+
+    button {
+        background: white;
+        border: none;
+        padding: 10px;
+        width: 100%;
+        text-transform: uppercase;
+        font-size: 0.8rem;
+    }
+}
+
+// When the screen is wider than 600px we are going to use media queries.  We are checking for anything that is above the size of a big phone.  We are going to set the width to 414px and the height to 896px when the screen is wider than 600px.  Joe changed the values to width:324px; and height:700px;.  Joe also did some changes to the #app <div>.
+@media only screen and (min-width: 600px) {
+    #app {
+        background: black;
+        height: 100vh;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    
+    #BillsApp {
+        // width: 414px;
+        width: 324px;
+        // height: 896px;
+        height: 700px;
+        border-radius: 15px;
+
+        // Now we are changing the .content-background <div> height because it is too high when adapted for larger screens.
+        .content-background {
+            height: 500px;
+        }
+    }
+}
