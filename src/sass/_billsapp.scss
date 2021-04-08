@@ -1,3 +1,5 @@
+// * * * * The black background and other things are needed for the bills app, but not used for the advanced React!!!!
+
 // background: linear-gradient(90deg, rgba(63,255,173,1) 0%, rgba(66,195,194,1) 100%);
 // background: linear-gradient(90deg, #36d1dc 0%, #5b86e5 100%);
 
@@ -369,12 +371,13 @@
 // When the screen is wider than 600px we are going to use media queries.  We are checking for anything that is above the size of a big phone.  We are going to set the width to 414px and the height to 896px when the screen is wider than 600px.  Joe changed the values to width:324px; and height:700px;.  Joe also did some changes to the #app <div>.
 @media only screen and (min-width: 600px) {
     #app {
-        background: black;
-        height: 100vh;
-        width: 100%;
-        display: flex;
-        justify-content: center;
-        align-items: center;
+        // * * * * This all is needed for the bills app, but not used for the advanced React!!!!
+        // background: black;
+        // height: 100vh;
+        // width: 100%;
+        // display: flex;
+        // justify-content: center;
+        // align-items: center;
     }
     
     #BillsApp {
