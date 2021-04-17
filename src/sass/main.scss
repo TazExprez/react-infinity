@@ -18,30 +18,35 @@ h1 {
 
 .container {
     // padding-top: 100px;
+    // * * * * I added these four properties to match Joe's display in some of the lessons.  This cannot be used for the BillsApp!!!!
+    // height: 100vh;
+    // display: flex;
+    // justify-content: center;
+    // align-items: center;
 }
 
-#Immutable-comp {
-    width: 100%;
-    max-width: 400px;
-    margin: 0 auto;
+// #Immutable-comp {
+//     width: 100%;
+//     max-width: 400px;
+//     margin: 0 auto;
 
-    .box {
-        background: black;
-        width: 250px;
-        height: 250px;
-        margin: 0 auto;
+//     .box {
+//         background: black;
+//         width: 250px;
+//         height: 250px;
+//         margin: 0 auto;
 
-        &.active {
-            background: green;
-        }
-    }
+//         &.active {
+//             background: green;
+//         }
+//     }
 
-    .button {
-        border-radius: 4px;
-        background: rgb(80, 80, 242);
-        padding: 10px 20px;
-        margin: 20px 0;
-        color: white;
-        cursor: pointer;
-    }
-}
+//     .button {
+//         border-radius: 4px;
+//         background: rgb(80, 80, 242);
+//         padding: 10px 20px;
+//         margin: 20px 0;
+//         color: white;
+//         cursor: pointer;
+//     }
+// }

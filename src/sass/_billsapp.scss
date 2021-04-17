@@ -372,12 +372,12 @@
 @media only screen and (min-width: 600px) {
     #app {
         // * * * * This all is needed for the bills app, but not used for the advanced React!!!!
-        // background: black;
-        // height: 100vh;
-        // width: 100%;
-        // display: flex;
-        // justify-content: center;
-        // align-items: center;
+        background: black;
+        height: 100vh;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
     }
     
     #BillsApp {
