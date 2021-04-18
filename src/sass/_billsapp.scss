@@ -300,6 +300,70 @@
     }
 }
 
+#Spend {
+    background: purple;
+    color: white;
+    position: absolute;
+    z-index: 5;
+    top: 0;
+    width: 100%;
+    height: 100vh;
+    transform: translate3d(100%, 0, 0);
+    transition: transform 0.4s ease-in-out;
+
+    &.active {
+        transform: translate3d(0, 0, 0);
+    }
+}
+
+#Save {
+    background: yellow;
+    color: white;
+    position: absolute;
+    z-index: 5;
+    top: 0;
+    width: 100%;
+    height: 100vh;
+    transform: translate3d(100%, 0, 0);
+    transition: transform 0.4s ease-in-out;
+
+    &.active {
+        transform: translate3d(0, 0, 0);
+    }
+}
+
+#Transfer {
+    background: orange;
+    color: white;
+    position: absolute;
+    z-index: 5;
+    top: 0;
+    width: 100%;
+    height: 100vh;
+    transform: translate3d(100%, 0, 0);
+    transition: transform 0.4s ease-in-out;
+
+    &.active {
+        transform: translate3d(0, 0, 0);
+    }
+}
+
+#Settings {
+    background: green;
+    color: white;
+    position: absolute;
+    z-index: 5;
+    top: 0;
+    width: 100%;
+    height: 100vh;
+    transform: translate3d(100%, 0, 0);
+    transition: transform 0.4s ease-in-out;
+
+    &.active {
+        transform: translate3d(0, 0, 0);
+    }
+}
+
 #AddBill {
     position: absolute;
     z-index: 5;

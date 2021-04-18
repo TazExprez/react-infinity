@@ -2,6 +2,10 @@ import React, { Component } from "react";
 import Header from "./Header";
 import AllBills from "./AllBills";
 import FloatingMenu from "./FloatingMenu";
+import Spend from "./Spend";
+import Save from "./Save";
+import Transfer from "./Transfer";
+import Settings from "./Settings";
 import AddBill from "./AddBill";
 // We will be using the immutability-helper library in this project.
 import update from "immutability-helper";
@@ -129,10 +133,15 @@ export default class BillsApp extends Component {
                 {/* Here we are also passing the this.changeBillStatus() method to the <AllBills /> via the changeBillStatus property. */}
                 {/* Here we are also passing the this.deleteBill() method to the <AllBills /> via the deleteBill property. */}
                 <AllBills allBills={this.state.allBills} changeBillStatus={this.changeBillStatus} deleteBill={this.deleteBill} />
+                <Spend />
+                <Save />
+                <Transfer />
+                <Settings />
                 {/* Here we are passing down the this.state.addBillOpen as the addBillOpen property to the <AddBill />.  We are passing down a false value, at first, because the this.state.addBillOpen is originally set to false. */}
                 {/* Here we are passing down the state and the saveBill() method to the <AddBill />. */}
                 {/* 6. * Here we are passing the saveBill() method as a property. */}
                 <AddBill addBillOpen={this.state.addBillOpen} saveBill={this.saveBill} />
+                {/* <AddBill openThisSection={this.state.openThisSection} saveBill={this.saveBill} /> */}
                 <div className="content-background" />
                 {/* We are passing down the clickedAddBillBtn() method to the <FloatingMenu />. */}
                 <FloatingMenu clickedAddBillBtn={this.clickedAddBillBtn} />
