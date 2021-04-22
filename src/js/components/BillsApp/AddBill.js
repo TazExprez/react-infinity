@@ -76,8 +76,8 @@ export default class AddBill extends Component {
             // When the #AddBill <section> has the .active, the <section> will be displayed.  When this <section> doesn't have the .active, the <section> will be hidden.
             // <section id="AddBill" className="active">
             // We are going to check if the this.props.addBillOpen property is true or not.  If it is, we are going to add the .active, if not, we are going to add an empty string, "".
-            <section id="AddBill" className={`${this.props.addBillOpen == true ? "active" : ""}`}>
-            {/* <section id="AddBill" className={`${this.props.openThisSection == "AddBill" ? "active" : ""}`}> */}
+            // <section id="AddBill" className={`${this.props.addBillOpen == true ? "active" : ""}`}>
+            <section id="AddBill" className={`${this.props.sectionOpened == "AddBill" ? "active" : ""}`}>
                 <div className="container">
                     <h2>Add Bill</h2>
                     {/* When this <form> gets submitted, trigger the this.handleSubmit() method. */}

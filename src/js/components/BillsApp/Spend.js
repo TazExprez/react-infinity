@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 
-const Spend = () => {
+const Spend = (props) => {
     return (
-        <section id="Spend">
+        <section id="Spend" className={`${props.sectionOpened === "Spend" ? "active" : ""}`}>
             <div className="container">
                 Spend
             </div>

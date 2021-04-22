@@ -19,7 +19,8 @@ export default class BillsApp extends Component {
         // We can use the <BillsApp /> as a global state component and use its this.state {} as the global state.  For larger applications, it's easier to use a library like Redux to manage your state.  When you have a small application, like this one, you don't even need Redux.  You can use the parent component of all of the other components and just use that component's this.state {} as the place to host the global state of the application.
         // Anything that has to do with some type of change or some type of state, that all of the child components need to know about, is going to be hosted inside of this parent <BillsApp />.
         this.state = {
-            addBillOpen: false,
+            // addBillOpen: false,
+            sectionOpened: "none",
             // This property is going to be an [] of {}s.  We are going to host all of the bills here and add them to this [].  We will be displaying all of the bills that are in this [] later on.
             // allBills: [],
             // We are temporarily putting a bill inside of the allBills [] by default so that we don't have to create a bill while we are testing this application.
@@ -31,15 +32,29 @@ export default class BillsApp extends Component {
                     status: "unpaid",
                 }
             ],
+            // allBills: JSON.parse(localStorage.getItem("allBills")),
         };
     }
 
     // Since we want to change the this.state {} here, in the <BillsApp />, we are going to host the onClick() event that changes the this.state {} here, too.
-    clickedAddBillBtn = () => {
-        this.setState({
-            // Here we are setting addBillOpen to be the opposite of whatever the this.state.addBillOpen is.  When you are working with booleans, the !, or not symbol, will make something that is false into true and vice versa.
-            addBillOpen: !this.state.addBillOpen,
-        });
+    // clickedAddBillBtn = () => {
+    //     this.setState({
+    //         // Here we are setting addBillOpen to be the opposite of whatever the this.state.addBillOpen is.  When you are working with booleans, the !, or not symbol, will make something that is false into true and vice versa.
+    //         addBillOpen: !this.state.addBillOpen,
+    //     });
+    // };
+
+    clickedSectionToOpen = (section) => {
+        if (this.state.sectionOpened === "none" || this.state.sectionOpened !== section) {
+            this.setState({
+                sectionOpened: section,
+            });
+        }
+        else {
+            this.setState({
+                sectionOpened: "none",
+            });
+        }   
     };
 
     // Since we have the this.state.addBillOpen and the this.state.allBills here, in the <BillsApp />, and we have our <form> in the <AddBill />, we have to create this saveBill() method here.  Then we have to pass this saveBill() method down as props to the <AddBill />.  Then we have to pass the this.state {} of the <AddBill /> to this saveBill() method that got passed down to the <AddBill /> as props.  Finally, we have to come back to the <BillsApp /> and add the result of this saveBill() method to the this.state.allBills [].
@@ -63,13 +78,15 @@ export default class BillsApp extends Component {
             // 4. * The newBills [] is the one returned by the update() above.  This new newBills [] will be set to the allBills [].
             allBills: newBills,
             // Whenever we click the save <button>, we want the <form> that adds the bills to close.
-            addBillOpen: !this.state.addBillOpen,
+            // addBillOpen: !this.state.addBillOpen,
+            sectionOpened: "none",
         },
             () => {
                 // Here we are checking the state.
                 // 5. * This is going to console.log() the state after it has been updated.  This is just for debugging purposes.
                 // 13. * We finally console.log() the new state.
                 console.log(this.state);
+                // localStorage.setItem("allBills", JSON.stringify(newBills));
             }
         );
     };
@@ -119,6 +136,7 @@ export default class BillsApp extends Component {
         // This will set the state.
         this.setState(newState, () => {
             console.log(this.state);
+            // localStorage.setItem("allBills", JSON.stringify(newState));
         });
 
         // This will console.log() the index of the bill whose delete button is clicked.
@@ -133,18 +151,19 @@ export default class BillsApp extends Component {
                 {/* Here we are also passing the this.changeBillStatus() method to the <AllBills /> via the changeBillStatus property. */}
                 {/* Here we are also passing the this.deleteBill() method to the <AllBills /> via the deleteBill property. */}
                 <AllBills allBills={this.state.allBills} changeBillStatus={this.changeBillStatus} deleteBill={this.deleteBill} />
-                <Spend />
-                <Save />
-                <Transfer />
-                <Settings />
+                <Spend sectionOpened={this.state.sectionOpened} />
+                <Save sectionOpened={this.state.sectionOpened} />
+                <Transfer sectionOpened={this.state.sectionOpened} />
+                <Settings sectionOpened={this.state.sectionOpened} />
                 {/* Here we are passing down the this.state.addBillOpen as the addBillOpen property to the <AddBill />.  We are passing down a false value, at first, because the this.state.addBillOpen is originally set to false. */}
                 {/* Here we are passing down the state and the saveBill() method to the <AddBill />. */}
                 {/* 6. * Here we are passing the saveBill() method as a property. */}
-                <AddBill addBillOpen={this.state.addBillOpen} saveBill={this.saveBill} />
-                {/* <AddBill openThisSection={this.state.openThisSection} saveBill={this.saveBill} /> */}
+                {/* <AddBill addBillOpen={this.state.addBillOpen} saveBill={this.saveBill} /> */}
+                <AddBill sectionOpened={this.state.sectionOpened} saveBill={this.saveBill} />
                 <div className="content-background" />
                 {/* We are passing down the clickedAddBillBtn() method to the <FloatingMenu />. */}
-                <FloatingMenu clickedAddBillBtn={this.clickedAddBillBtn} />
+                {/* <FloatingMenu clickedAddBillBtn={this.clickedAddBillBtn} /> */}
+                <FloatingMenu clickedSectionToOpen={this.clickedSectionToOpen} />
             </div>
         );
     }

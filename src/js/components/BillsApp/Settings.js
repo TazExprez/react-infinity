@@ -11,7 +11,7 @@ export default class Settings extends Component {
 
     render() {
         return (
-            <section id="Settings">
+            <section id="Settings" className={`${this.props.sectionOpened === "Settings" ? "active" : ""}`}>
                 <div className="container">
                     Settings
                 </div>

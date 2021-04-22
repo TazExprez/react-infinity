@@ -11,7 +11,7 @@ export default class Transfer extends Component {
 
     render() {
         return (
-            <section id="Transfer">
+            <section id="Transfer" className={`${this.props.sectionOpened === "Transfer" ? "active" : ""}`}>
                 <div className="container">
                     Transfer
                 </div>

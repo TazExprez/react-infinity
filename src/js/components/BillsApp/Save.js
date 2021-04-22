@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 
-const Save = () => {
+const Save = (props) => {
     return (
-        <section id="Save">
+        <section id="Save" className={`${props.sectionOpened === "Save" ? "active" : ""}`}>
             <div className="container">
                 Save
             </div>
